@@ -6,6 +6,10 @@ const botonAvanzar = document.querySelector('#avanzar');
 const botonRetroceder = document.querySelector('#retroceder');
 const templateCirculo = document.querySelector('#templete-circulo').content.firstElementChild;
 const circulo = document.querySelector('#circulo');
+const botonParar = document.querySelector('#parar');
+const botonAutoplay = document.querySelector('#autoplay');
+let intervalo = null;
+const tiempoIntervaloSeg = 1;
 
 //funciones
 function cambiarPagina(nuevaPagina){
@@ -45,11 +49,22 @@ function render(){
     });
 
 }
+function autoplay(){
+    if (intervalo === null) {
+        intervalo = setInterval(function (){avanzarFoto();
+        },tiempoIntervaloSeg * 1000);
+    }
 
+}
+function parar(){
+    clearInterval(intervalo);
+    intervalo = null;
+}
 //eventos
 
 botonAvanzar.addEventListener('click', avanzarFoto);
 botonRetroceder.addEventListener('click',retrocederFoto);
-
+botonAutoplay.addEventListener('click',autoplay);
+botonParar.addEventListener('click',parar);
 //inicio
 render();
